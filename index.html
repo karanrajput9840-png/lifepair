@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifePair - Connect Lives Through Organ Donation</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-heartbeat"></i>
+                <span>LifePair</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#donor" class="nav-link">Be a Donor</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#deceased" class="nav-link">Register Deceased</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#receiver" class="nav-link">Find Donor</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="gradient-text">Connect Lives</span><br>
+                    Through Organ Donation
+                </h1>
+                <p class="hero-description">
+                    Join our community to save lives. Whether you want to donate or need an organ, 
+                    we're here to help you find the perfect match.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="scrollToSection('donor')">
+                        <i class="fas fa-heart"></i>
+                        Become a Donor
+                    </button>
+                    <button class="btn btn-secondary" onclick="scrollToSection('receiver')">
+                        <i class="fas fa-search"></i>
+                        Find a Donor
+                    </button>
+                </div>
+            </div>
+            <div class="hero-animation">
+                <div class="floating-hearts">
+                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-heart"></i>
+                </div>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <h3>1,200+</h3>
+                <p>Lives Saved</p>
+            </div>
+            <div class="stat-item">
+                <h3>500+</h3>
+                <p>Active Donors</p>
+            </div>
+            <div class="stat-item">
+                <h3>50+</h3>
+                <p>Partner Hospitals</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donor Section -->
+    <section id="donor" class="donor-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Become a Life Saver</h2>
+                <p class="section-description">Register as a donor and help save lives in your community</p>
+            </div>
+            
+            <div class="donor-form-container">
+                <form id="donorForm" class="donor-form">
+                    <div class="form-step active" data-step="1">
+                        <h3>Personal Information</h3>
+                        <div class="form-group">
+                            <label for="donorName">Full Name *</label>
+                            <input type="text" id="donorName" name="donorName" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="donorAge">Age *</label>
+                                <input type="number" id="donorAge" name="donorAge" required min="18" max="100">
+                            </div>
+                            <div class="form-group">
+                                <label for="donorBloodType">Blood Type *</label>
+                                <select id="donorBloodType" name="donorBloodType" required>
+                                    <option value="">Select Blood Type</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="donorContact">Contact Number *</label>
+                            <input type="tel" id="donorContact" name="donorContact" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="donorEmail">Email Address *</label>
+                            <input type="email" id="donorEmail" name="donorEmail" required>
+                        </div>
+                    </div>
+
+                    <div class="form-step" data-step="2">
+                        <h3>Donation Details</h3>
+                        <div class="form-group">
+                            <label>Body Parts/Organs Available for Donation *</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="organs" value="heart">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-heart"></i> Heart
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="organs" value="liver">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-lungs"></i> Liver
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="organs" value="kidney">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-kidneys"></i> Kidney
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="organs" value="lungs">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-lungs"></i> Lungs
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="organs" value="pancreas">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-pancreas"></i> Pancreas
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="organs" value="cornea">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-eye"></i> Cornea
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="organs" value="skin">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-hand-paper"></i> Skin
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="organs" value="bone">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-bone"></i> Bone
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="organs" value="intestine">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-dna"></i> Intestine
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="organs" value="tendons">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-running"></i> Tendons
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="organs" value="heart_valves">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-heartbeat"></i> Heart Valves
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="organs" value="veins">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-route"></i> Veins
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="donationNotes">Additional Notes</label>
+                            <textarea id="donationNotes" name="donationNotes" rows="4" placeholder="Any specific conditions or additional information..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-step" data-step="3">
+                        <h3>Hospital & Location Details</h3>
+                        <div class="form-group">
+                            <label for="hospitalName">Hospital Name *</label>
+                            <input type="text" id="hospitalName" name="hospitalName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hospitalContact">Hospital Contact *</label>
+                            <input type="tel" id="hospitalContact" name="hospitalContact" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="country">Country *</label>
+                                <select id="country" name="country" required>
+                                    <option value="">Select Country</option>
+                                    <option value="US">United States</option>
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="IN">India</option>
+                                    <option value="DE">Germany</option>
+                                    <option value="FR">France</option>
+                                    <option value="JP">Japan</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State/Province *</label>
+                                <input type="text" id="state" name="state" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="district">District/County *</label>
+                                <input type="text" id="district" name="district" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="city">City *</label>
+                                <input type="text" id="city" name="city" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="streetAddress">Street Address *</label>
+                            <input type="text" id="streetAddress" name="streetAddress" required placeholder="Street number, street name, building name">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="postalCode">Postal/ZIP Code *</label>
+                                <input type="text" id="postalCode" name="postalCode" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="coordinates">Coordinates (Optional)</label>
+                                <input type="text" id="coordinates" name="coordinates" placeholder="Latitude, Longitude">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-outline" id="prevBtn" onclick="changeStep(-1)">Previous</button>
+                        <button type="button" class="btn btn-primary" id="nextBtn" onclick="changeStep(1)">Next</button>
+                        <button type="submit" class="btn btn-success" id="submitBtn" style="display: none;">Submit Registration</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deceased Donor Section -->
+    <section id="deceased" class="deceased-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Register Deceased Donor</h2>
+                <p class="section-description">Register that someone has donated their organs at a hospital for others to find</p>
+            </div>
+            
+            <div class="deceased-form-container">
+                <form id="deceasedForm" class="deceased-form">
+                    <div class="form-step active" data-step="1">
+                        <h3>Deceased Person Information</h3>
+                        <div class="form-group">
+                            <label for="deceasedName">Deceased Person's Name *</label>
+                            <input type="text" id="deceasedName" name="deceasedName" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="deceasedAge">Age at Death *</label>
+                                <input type="number" id="deceasedAge" name="deceasedAge" required min="0" max="120">
+                            </div>
+                            <div class="form-group">
+                                <label for="deceasedBloodType">Blood Type *</label>
+                                <select id="deceasedBloodType" name="deceasedBloodType" required>
+                                    <option value="">Select Blood Type</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="deceasedContact">Your Contact Number *</label>
+                            <input type="tel" id="deceasedContact" name="deceasedContact" required placeholder="Your contact for inquiries">
+                        </div>
+                        <div class="form-group">
+                            <label for="deceasedEmail">Your Email Address *</label>
+                            <input type="email" id="deceasedEmail" name="deceasedEmail" required placeholder="Your email for inquiries">
+                        </div>
+                        <div class="form-group">
+                            <label for="relationship">Your Relationship to Deceased *</label>
+                            <select id="relationship" name="relationship" required>
+                                <option value="">Select Relationship</option>
+                                <option value="spouse">Spouse</option>
+                                <option value="child">Child</option>
+                                <option value="parent">Parent</option>
+                                <option value="sibling">Sibling</option>
+                                <option value="relative">Other Relative</option>
+                                <option value="friend">Friend</option>
+                                <option value="guardian">Legal Guardian</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-step" data-step="2">
+                        <h3>Donated Organs & Tissues</h3>
+                        <div class="form-group">
+                            <label>Organs/Tissues Donated *</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="donatedOrgans" value="heart">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-heart"></i> Heart
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="donatedOrgans" value="liver">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-lungs"></i> Liver
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="donatedOrgans" value="kidney">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-kidneys"></i> Kidney
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="donatedOrgans" value="lungs">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-lungs"></i> Lungs
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="donatedOrgans" value="pancreas">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-pancreas"></i> Pancreas
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="donatedOrgans" value="cornea">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-eye"></i> Cornea
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="donatedOrgans" value="skin">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-hand-paper"></i> Skin
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="donatedOrgans" value="bone">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-bone"></i> Bone
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="donatedOrgans" value="intestine">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-dna"></i> Intestine
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="donatedOrgans" value="tendons">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-running"></i> Tendons
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="donatedOrgans" value="heart_valves">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-heartbeat"></i> Heart Valves
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="donatedOrgans" value="veins">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-route"></i> Veins
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="donationDate">Date of Donation *</label>
+                            <input type="date" id="donationDate" name="donationDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="deceasedNotes">Additional Information</label>
+                            <textarea id="deceasedNotes" name="deceasedNotes" rows="4" placeholder="Any additional information about the donation..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-step" data-step="3">
+                        <h3>Hospital & Location Details</h3>
+                        <div class="form-group">
+                            <label for="deceasedHospitalName">Hospital Name *</label>
+                            <input type="text" id="deceasedHospitalName" name="deceasedHospitalName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="deceasedHospitalContact">Hospital Contact *</label>
+                            <input type="tel" id="deceasedHospitalContact" name="deceasedHospitalContact" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="deceasedCountry">Country *</label>
+                                <select id="deceasedCountry" name="deceasedCountry" required>
+                                    <option value="">Select Country</option>
+                                    <option value="US">United States</option>
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="IN">India</option>
+                                    <option value="DE">Germany</option>
+                                    <option value="FR">France</option>
+                                    <option value="JP">Japan</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="deceasedState">State/Province *</label>
+                                <input type="text" id="deceasedState" name="deceasedState" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="deceasedDistrict">District/County *</label>
+                                <input type="text" id="deceasedDistrict" name="deceasedDistrict" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="deceasedCity">City *</label>
+                                <input type="text" id="deceasedCity" name="deceasedCity" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="deceasedStreetAddress">Hospital Street Address *</label>
+                            <input type="text" id="deceasedStreetAddress" name="deceasedStreetAddress" required placeholder="Street number, street name, building name">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="deceasedPostalCode">Postal/ZIP Code *</label>
+                                <input type="text" id="deceasedPostalCode" name="deceasedPostalCode" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="deceasedCoordinates">Coordinates (Optional)</label>
+                                <input type="text" id="deceasedCoordinates" name="deceasedCoordinates" placeholder="Latitude, Longitude">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-outline" id="deceasedPrevBtn" onclick="changeDeceasedStep(-1)">Previous</button>
+                        <button type="button" class="btn btn-primary" id="deceasedNextBtn" onclick="changeDeceasedStep(1)">Next</button>
+                        <button type="submit" class="btn btn-success" id="deceasedSubmitBtn" style="display: none;">Register Deceased Donor</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Receiver Section -->
+    <section id="receiver" class="receiver-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Find Your Perfect Match</h2>
+                <p class="section-description">Search for donors based on your location and needs</p>
+            </div>
+
+            <div class="search-container">
+                <div class="search-filters">
+                    <div class="filter-group">
+                        <label for="searchOrgan">Body Part/Organ Needed *</label>
+                        <select id="searchOrgan" name="searchOrgan" required>
+                            <option value="">Select Body Part/Organ</option>
+                            <option value="heart">❤️ Heart</option>
+                            <option value="liver">🫁 Liver</option>
+                            <option value="kidney">🫘 Kidney</option>
+                            <option value="lungs">🫁 Lungs</option>
+                            <option value="pancreas">🫀 Pancreas</option>
+                            <option value="cornea">👁️ Cornea</option>
+                            <option value="skin">✋ Skin</option>
+                            <option value="bone">🦴 Bone</option>
+                            <option value="intestine">🧬 Intestine</option>
+                            <option value="tendons">🏃 Tendons</option>
+                            <option value="heart_valves">💓 Heart Valves</option>
+                            <option value="veins">🩸 Veins</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="searchBloodType">Blood Type</label>
+                        <select id="searchBloodType" name="searchBloodType">
+                            <option value="">Any Blood Type</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="searchLocation">Location</label>
+                        <input type="text" id="searchLocation" name="searchLocation" placeholder="Enter city, state, or country">
+                    </div>
+                    <div class="filter-group">
+                        <label for="searchRadius">Search Radius</label>
+                        <select id="searchRadius" name="searchRadius">
+                            <option value="50">50 km</option>
+                            <option value="100">100 km</option>
+                            <option value="200">200 km</option>
+                            <option value="500">500 km</option>
+                            <option value="1000">1000+ km</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="searchDonors()">
+                        <i class="fas fa-search"></i>
+                        Search Donors
+                    </button>
+                    <button class="btn btn-outline" onclick="testSearch()" style="margin-left: 10px;">
+                        <i class="fas fa-bug"></i>
+                        Test Search
+                    </button>
+                    <button class="btn btn-outline" onclick="refreshData()" style="margin-left: 10px;">
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh Data
+                    </button>
+                    <button class="btn btn-outline" onclick="debugData()" style="margin-left: 10px;">
+                        <i class="fas fa-info-circle"></i>
+                        Debug
+                    </button>
+                </div>
+            </div>
+
+            <div class="results-container">
+                <div class="map-container">
+                    <div id="map"></div>
+                </div>
+                <div class="results-list" id="resultsList">
+                    <div class="no-results">
+                        <i class="fas fa-search"></i>
+                        <h3>Search for donors to see results</h3>
+                        <p>Use the filters above to find donors in your area</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About LifePair</h2>
+                    <p>LifePair is a revolutionary platform that connects organ donors with those in need. Our mission is to make organ donation more accessible and efficient, ultimately saving more lives.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <h3>Secure & Private</h3>
+                            <p>Your personal information is protected with industry-standard security measures.</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h3>Location-Based Matching</h3>
+                            <p>Find donors in your area with our advanced location search.</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-clock"></i>
+                            <h3>24/7 Support</h3>
+                            <p>Our team is available around the clock to assist you.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>LifePair</h3>
+                    <p>Connecting lives through organ donation</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#donor">Be a Donor</a></li>
+                        <li><a href="#receiver">Find Donor</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@lifepair.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Health St, Medical City</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 LifePair. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-check-circle"></i>
+                <h2>Registration Successful!</h2>
+            </div>
+            <div class="modal-body">
+                <p>Thank you for registering as a donor. Your information has been saved and will help save lives.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, push, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBrw3pSm6JsxQy1wHokxd_S8r_9U5uuKkg",
+            authDomain: "lifepair-fc71d.firebaseapp.com",
+            databaseURL: "https://lifepair-fc71d-default-rtdb.firebaseio.com",
+            projectId: "lifepair-fc71d",
+            storageBucket: "lifepair-fc71d.firebasestorage.app",
+            messagingSenderId: "1061159313715",
+            appId: "1:1061159313715:web:85d067d8d2af0c4b451e46"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Make Firebase functions available globally
+        window.firebaseDatabase = database;
+        window.firebaseRef = ref;
+        window.firebasePush = push;
+        window.firebaseSet = set;
+        window.firebaseGet = get;
+        window.firebaseOnValue = onValue;
+    </script>
+    
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifePair Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .test-button {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background: #c0392b;
+        }
+        .result {
+            background: #f8f9fa;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 LifePair Test Page</h1>
+        <p>This page helps test the functionality of the LifePair organ donation website.</p>
+        
+        <div class="test-section">
+            <h2>1. Test Data Loading</h2>
+            <button class="test-button" onclick="testDataLoading()">Load Sample Data</button>
+            <div id="dataResult" class="result" style="display: none;"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>2. Test Search Functionality</h2>
+            <button class="test-button" onclick="testSearchFunction()">Test Heart Search</button>
+            <button class="test-button" onclick="testSearchFunction('liver')">Test Liver Search</button>
+            <button class="test-button" onclick="testSearchFunction('cornea')">Test Cornea Search</button>
+            <div id="searchResult" class="result" style="display: none;"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>3. Test Form Validation</h2>
+            <button class="test-button" onclick="testFormValidation()">Test Form Validation</button>
+            <div id="formResult" class="result" style="display: none;"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>4. Open Main Website</h2>
+            <button class="test-button" onclick="window.open('index.html', '_blank')">Open LifePair Website</button>
+        </div>
+    </div>
+
+    <script>
+        // Test data loading
+        function testDataLoading() {
+            const resultDiv = document.getElementById('dataResult');
+            resultDiv.style.display = 'block';
+            
+            // Check if donors exist in localStorage
+            const donors = JSON.parse(localStorage.getItem('donors') || '[]');
+            
+            if (donors.length > 0) {
+                resultDiv.innerHTML = `
+                    <h3>✅ Data Loaded Successfully</h3>
+                    <p>Found ${donors.length} donors in the database:</p>
+                    <ul>
+                        ${donors.map(donor => `<li><strong>${donor.donorName}</strong> - ${donor.organs.join(', ')}</li>`).join('')}
+                    </ul>
+                `;
+            } else {
+                resultDiv.innerHTML = `
+                    <h3>❌ No Data Found</h3>
+                    <p>No donors found in localStorage. The sample data should be loaded when you open the main website.</p>
+                `;
+            }
+        }
+        
+        // Test search functionality
+        function testSearchFunction(organ = 'heart') {
+            const resultDiv = document.getElementById('searchResult');
+            resultDiv.style.display = 'block';
+            
+            const donors = JSON.parse(localStorage.getItem('donors') || '[]');
+            const searchResults = donors.filter(donor => 
+                donor.organs && donor.organs.includes(organ)
+            );
+            
+            if (searchResults.length > 0) {
+                resultDiv.innerHTML = `
+                    <h3>✅ Search for "${organ}" Successful</h3>
+                    <p>Found ${searchResults.length} donor(s) with ${organ}:</p>
+                    <ul>
+                        ${searchResults.map(donor => `
+                            <li>
+                                <strong>${donor.donorName}</strong><br>
+                                Blood Type: ${donor.bloodType}<br>
+                                Location: ${donor.city}, ${donor.state}<br>
+                                Available: ${donor.organs.join(', ')}
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+            } else {
+                resultDiv.innerHTML = `
+                    <h3>❌ No Results for "${organ}"</h3>
+                    <p>No donors found with ${organ}. Available organs in database:</p>
+                    <ul>
+                        ${[...new Set(donors.flatMap(d => d.organs || []))].map(org => `<li>${org}</li>`).join('')}
+                    </ul>
+                `;
+            }
+        }
+        
+        // Test form validation
+        function testFormValidation() {
+            const resultDiv = document.getElementById('formResult');
+            resultDiv.style.display = 'block';
+            
+            // Test email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const testEmails = ['test@email.com', 'invalid-email', 'user@domain.co.uk'];
+            
+            const emailResults = testEmails.map(email => ({
+                email,
+                valid: emailRegex.test(email)
+            }));
+            
+            // Test phone validation
+            const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+            const testPhones = ['+1234567890', '1234567890', 'invalid-phone'];
+            
+            const phoneResults = testPhones.map(phone => ({
+                phone,
+                valid: phoneRegex.test(phone.replace(/\s/g, ''))
+            }));
+            
+            resultDiv.innerHTML = `
+                <h3>✅ Form Validation Tests</h3>
+                <h4>Email Validation:</h4>
+                <ul>
+                    ${emailResults.map(result => 
+                        `<li>${result.email}: ${result.valid ? '✅ Valid' : '❌ Invalid'}</li>`
+                    ).join('')}
+                </ul>
+                <h4>Phone Validation:</h4>
+                <ul>
+                    ${phoneResults.map(result => 
+                        `<li>${result.phone}: ${result.valid ? '✅ Valid' : '❌ Invalid'}</li>`
+                    ).join('')}
+                </ul>
+            `;
+        }
+    </script>
+</body>
+</html>
